@@ -1,28 +1,19 @@
-var socket = io();
+const socket = io();
 
-socket.on('updateOrder', function(data) {
-    document.getElementById('totalAmount').textContent = data.total.toFixed(2);
+function addOrder(item) {
+    let orderSummary = document.getElementById('order-summary');
+    orderSummary.innerHTML += `<p>${item}</p>`;
+}
 
-    let orderList = document.getElementById('orderList');
-    orderList.innerHTML = '';
-    data.items.forEach(item => {
-        let li = document.createElement('li');
-        li.textContent = item;
-        orderList.appendChild(li);
-    });
+function submitOrder() {
+    let orders = document.getElementById('order-summary').innerHTML;
+    socket.emit('add_order', orders);
+}
+
+socket.on('update_orders', function (orders) {
+    document.getElementById('orders').innerHTML = orders.join("<br>");
 });
 
-document.querySelectorAll('.order-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        let item = this.getAttribute('data-item');
-        socket.emit('addOrder', item);
-    });
-});
-
-document.getElementById('submitOrder').addEventListener('click', function() {
-    socket.emit('submitOrder');
-});
-
-document.getElementById('finishOrder').addEventListener('click', function() {
-    socket.emit('finishOrder');
-});
+function finishOrder() {
+    socket.emit('finish_order');
+}
