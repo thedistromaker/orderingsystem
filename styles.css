@@ -2,25 +2,12 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
 }
-
-.container {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+.menu button {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    border: none;
 }
-
-.menu, .summary {
-    border: 1px solid #ddd;
-    padding: 20px;
-    width: 40%;
-}
-
-button {
-    padding: 10px;
-    margin: 5px;
-    cursor: pointer;
-}
-
-ul {
-    list-style-type: none;
+.menu img {
+    width: 100%;
 }
