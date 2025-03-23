@@ -1,23 +1,14 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, redirect
 from flask_socketio import SocketIO
 
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app)
 
-order_queue = []
-current_order = []
-
-PRICES = {
-    "Cappuccino": 3.50,
-    "Espresso": 2.50,
-    "Latte": 4.00,
-    "Milk": 0.50,
-    "Extra Shot": 1.00
-}
+orders = []
 
 @app.route('/')
-def index():
-    return "Redirecting...", 302, {'Location': '/register'}
+def home():
+    return redirect('/register')
 
 @app.route('/register')
 def register():
@@ -27,24 +18,16 @@ def register():
 def kds():
     return render_template('kds.html')
 
-@socketio.on('addOrder')
-def add_order(item):
-    current_order.append(item)
-    socketio.emit('updateOrder', {'items': current_order, 'total': sum(PRICES[i] for i in current_order)})
+@socketio.on('add_order')
+def add_order(data):
+    orders.append(data)
+    socketio.emit('update_orders', orders)
 
-@socketio.on('submitOrder')
-def submit_order():
-    if current_order:
-        order_queue.append(list(current_order))
-        current_order.clear()
-        socketio.emit('updateQueue', order_queue)
-        socketio.emit('updateOrder', {'items': [], 'total': 0})
-
-@socketio.on('finishOrder')
+@socketio.on('finish_order')
 def finish_order():
-    if order_queue:
-        order_queue.pop(0)
-        socketio.emit('updateQueue', order_queue)
+    if orders:
+        orders.pop(0)
+        socketio.emit('update_orders', orders)
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host='0.0.0.0', port=5000)
+    socketio.run(app, debug=True)
