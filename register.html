@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cash Register</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="menu">
-            <h2>Menu</h2>
-            <button class="order-btn" data-item="Cappuccino">Cappuccino</button>
-            <button class="order-btn" data-item="Espresso">Espresso</button>
-            <button class="order-btn" data-item="Latte">Latte</button>
-            <h3>Add-ons</h3>
-            <button class="order-btn" data-item="Milk">Milk</button>
-            <button class="order-btn" data-item="Extra Shot">Extra Shot</button>
-        </div>
-        
-        <div class="summary">
-            <h2>Order Summary</h2>
-            <ul id="orderList"></ul>
-            <h3>Total: £<span id="totalAmount">0.00</span></h3>
-            <button id="submitOrder">Submit Order</button>
-            <button id="finishOrder">Finish Order</button>
-        </div>
+    <h1>Cash Register</h1>
+    <div class="menu">
+        <button onclick="addOrder('Cappuccino')">
+            <img src="/static/images/cappuccino.png" alt="Cappuccino">
+        </button>
+        <button onclick="addOrder('Espresso')">
+            <img src="/static/images/espresso.png" alt="Espresso">
+        </button>
+        <button onclick="addOrder('Milk')">
+            <img src="/static/images/milk.png" alt="Milk">
+        </button>
+        <button onclick="addOrder('Extra Shot')">
+            <img src="/static/images/extra_shot.png" alt="Extra Shot">
+        </button>
     </div>
+    
+    <button onclick="submitOrder()">
+        <img src="/static/images/submit_order.png" alt="Submit Order">
+    </button>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <div id="order-summary"></div>
+
     <script src="/static/js/app.js"></script>
 </body>
 </html>
