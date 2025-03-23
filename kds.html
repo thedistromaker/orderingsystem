@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDS</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <h1>Kitchen Display System</h1>
+    <ul id="queueList"></ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <script>
+        var socket = io();
+
+        socket.on('updateQueue', function(orderQueue) {
+            let queueList = document.getElementById('queueList');
+            queueList.innerHTML = '';
+            orderQueue.forEach((order, index) => {
+                let li = document.createElement('li');
+                li.textContent = `Order ${index + 1}: ` + order.join(', ');
+                queueList.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
