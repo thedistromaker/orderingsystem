@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Register</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="menu">
+            <h2>Menu</h2>
+            <button class="order-btn" data-item="Cappuccino">Cappuccino</button>
+            <button class="order-btn" data-item="Espresso">Espresso</button>
+            <button class="order-btn" data-item="Latte">Latte</button>
+            <h3>Add-ons</h3>
+            <button class="order-btn" data-item="Milk">Milk</button>
+            <button class="order-btn" data-item="Extra Shot">Extra Shot</button>
+        </div>
+        
+        <div class="summary">
+            <h2>Order Summary</h2>
+            <ul id="orderList"></ul>
+            <h3>Total: £<span id="totalAmount">0.00</span></h3>
+            <button id="submitOrder">Submit Order</button>
+            <button id="finishOrder">Finish Order</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
